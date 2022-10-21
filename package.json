@@ -1,0 +1,54 @@
+{
+  "name": "@collectivexyz/sdk",
+  "version": "0.0.1",
+  "description": "collective.xyz SDK",
+  "keywords": [
+    "collective",
+    "web3"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "pnpm build --watch",
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "prebuild": "pnpm clean",
+    "preversion": "pnpm build",
+    "postversion": "git push --follow-tags",
+    "build-graphql-types": "graphql-codegen --config graphql-codegen.ts"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "homepage": "https://collective.xyz/sdk",
+  "bugs": "https://github.com/collectivexyz/sdk/issues",
+  "repository": {
+    "url": "https://github.com/collectivexyz/sdk",
+    "type": "git"
+  },
+  "engines": {
+    "node": "^16.15",
+    "pnpm": "^7.0"
+  },
+  "author": "collective.xyz",
+  "license": "MIT",
+  "dependencies": {
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.0.0",
+    "swr": "^1.3.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.13.7",
+    "@graphql-codegen/typescript": "^2.7.5",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^18.11.2",
+    "@types/react": "^18.0.21",
+    "encoding": "^0.1.13",
+    "react": "^18.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.4"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  }
+}
