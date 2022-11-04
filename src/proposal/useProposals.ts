@@ -56,14 +56,15 @@ export const useProposals = (args: { page?: number; limit?: number; slug: string
   const { page = 1, limit = 10, slug } = args;
 
   const { data, error, mutate } = useSWR<IResponse>(
-    [GET_PROPOSALS, { page, limit, collectionSlug: slug }],
+    slug ? [GET_PROPOSALS, { page, limit, collectionSlug: slug }] : undefined,
     { fetcher }
   );
 
   return {
     proposals: data?.proposals?.docs,
     isLoading: !error && !data,
-    isError: error,
+    isError: !!error,
+    error,
     mutate,
   };
 };

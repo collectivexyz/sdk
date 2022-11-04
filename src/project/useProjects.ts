@@ -50,14 +50,18 @@ export const useProjects = (args: { page?: number; limit?: number; slug: string 
   const { fetcher } = useCollective();
   const { page = 1, limit = 10, slug } = args;
 
-  const { data, error, mutate } = useSWR<IResponse>([GET_SUBPROJECTS, { page, limit, slug }], {
-    fetcher,
-  });
+  const { data, error, mutate } = useSWR<IResponse>(
+    slug ? [GET_SUBPROJECTS, { page, limit, slug }] : undefined,
+    {
+      fetcher,
+    }
+  );
 
   return {
     projects: data?.subprojects?.docs,
     isLoading: !error && !data,
-    isError: error,
+    isError: !!error,
+    error,
     mutate,
   };
 };
