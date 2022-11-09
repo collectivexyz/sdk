@@ -1,6 +1,6 @@
 {
-  "name": "@collectivexyz/sdk",
-  "version": "0.0.2",
+  "name": "@momentranks/sdk",
+  "version": "0.0.3",
   "description": "collective.xyz SDK",
   "keywords": [
     "collective",
@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "pnpm build --watch",
-    "build": "tsc",
+    "build": "tsc --module commonjs",
     "clean": "rimraf dist",
     "prebuild": "pnpm clean",
     "preversion": "pnpm build",
