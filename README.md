@@ -2,11 +2,11 @@
 
 ## About
 
-Work in progress...
+The SDK isn't ready and not meant to use yet.
 
 ## Documentation
 
-Work in progres..
+There is no documentation yet. Do not use the package.
 
 ## Commands
 
@@ -20,12 +20,4 @@ pnpm install
 
 ```
 pnpm dev
-```
-
-#### Using the SDK in local yarn project
-
-In project that uses `yarn`:
-
-```
-yarn add link:./../sdk         # Replace with real path
 ```
