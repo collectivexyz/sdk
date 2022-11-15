@@ -33,6 +33,7 @@ export const GET_SUBPROJECT = gql`
         ask
         platformUrl
         proposer
+        proposalId
       }
     }
   }
