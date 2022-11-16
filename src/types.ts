@@ -1674,9 +1674,9 @@ export type QuerySubprojectArgs = {
 
 export type QuerySubprojectsArgs = {
   address?: InputMaybe<Scalars['String']>;
+  communityIds: Array<Scalars['String']>;
   limit?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
-  slug: Scalars['String'];
 };
 
 export type QuerySuggestionsByPhraseArgs = {
@@ -1838,34 +1838,26 @@ export type StatNumber = {
 };
 
 export type Subproject = {
-  coverImageUrl?: Maybe<Scalars['String']>;
+  communityId: Scalars['String'];
   createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
-  ethAddresses?: Maybe<Array<Scalars['String']>>;
-  feedId?: Maybe<Scalars['String']>;
   funding?: Maybe<Scalars['Float']>;
   id: Scalars['String'];
-  isFunded?: Maybe<Scalars['Boolean']>;
-  isMarkdown: Scalars['Boolean'];
+  images: Array<Scalars['String']>;
+  logoUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   ownerEthAddress: Scalars['String'];
-  projectId: Scalars['String'];
   proposalIds?: Maybe<Array<Scalars['String']>>;
   proposals?: Maybe<Array<Proposal>>;
+  rank: Scalars['Float'];
   slug: Scalars['String'];
-  status?: Maybe<SubprojectStatusEnum>;
   tagline: Scalars['String'];
   tags?: Maybe<Array<Scalars['String']>>;
   updatedAt: Scalars['DateTime'];
-  updatesCount: Scalars['Int'];
+  videoUrl?: Maybe<Scalars['String']>;
+  votes: Array<Scalars['String']>;
+  votesCount: Scalars['Float'];
+  website: Scalars['String'];
 };
-
-export enum SubprojectStatusEnum {
-  Canceled = 'CANCELED',
-  Completed = 'COMPLETED',
-  InProgress = 'IN_PROGRESS',
-  New = 'NEW',
-}
 
 export type Suggestion = {
   data?: Maybe<Scalars['JSON']>;

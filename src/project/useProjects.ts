@@ -1,21 +1,19 @@
 import { gql } from 'graphql-request';
 import useSWR from 'swr';
 import { useCollective } from '../context';
-import { Subproject } from '../types';
+import { QuerySubprojectsArgs, Subproject } from '../types';
 
 export const GET_SUBPROJECTS = gql`
-  query Subprojects($limit: Int!, $page: Int!, $slug: String!) {
-    subprojects(limit: $limit, page: $page, slug: $slug) {
+  query Subprojects($limit: Int!, $page: Int!, $communityIds: [String!]!) {
+    subprojects(limit: $limit, page: $page, communityIds: $communityIds) {
       docs {
         name
         slug
-        status
         tagline
-        funding
-        coverImageUrl
+        logoUrl
         tags
-        updatesCount
         ownerEthAddress
+        votesCount
       }
       hasNextPage
       hasPrevPage
@@ -31,27 +29,19 @@ export const GET_SUBPROJECTS = gql`
 
 type PartialSubproject = Pick<
   Subproject,
-  | 'name'
-  | 'slug'
-  | 'status'
-  | 'tagline'
-  | 'funding'
-  | 'coverImageUrl'
-  | 'tags'
-  | 'updatesCount'
-  | 'ownerEthAddress'
+  'name' | 'slug' | 'tagline' | 'logoUrl' | 'tags' | 'votesCount' | 'ownerEthAddress'
 >;
 
 interface IResponse {
   subprojects: { docs: PartialSubproject[] };
 }
 
-export const useProjects = (args: { page?: number; limit?: number; slug: string }) => {
+export const useProjects = (args: QuerySubprojectsArgs) => {
   const { fetcher } = useCollective();
-  const { page = 1, limit = 10, slug } = args;
+  const { page = 1, limit = 10, communityIds } = args;
 
   const { data, error, mutate } = useSWR<IResponse>(
-    slug ? [GET_SUBPROJECTS, { page, limit, slug }] : undefined,
+    communityIds ? [GET_SUBPROJECTS, { page, limit, communityIds }] : undefined,
     {
       fetcher,
     }

@@ -1,27 +1,28 @@
 import { gql } from 'graphql-request';
 import useSWR from 'swr';
 import { useCollective } from '../context';
-import { Subproject } from '../types';
+import { QuerySubprojectArgs, Subproject } from '../types';
 
 export const GET_SUBPROJECT = gql`
   query Subproject($slug: String!) {
     subproject(slug: $slug) {
-      name
-      coverImageUrl
+      communityId
       createdAt
-      description
-      ethAddresses
-      feedId
       funding
-      isFunded
-      isMarkdown
+      id
+      images
+      logoUrl
+      name
       ownerEthAddress
+      rank
       slug
-      status
-      tagline
       tags
+      tagline
       updatedAt
-      updatesCount
+      videoUrl
+      votes
+      votesCount
+      website
       proposals {
         title
         totalVotes
@@ -43,7 +44,7 @@ interface IResponse {
   subproject: Subproject;
 }
 
-export const useProject = (args: { slug: string }) => {
+export const useProject = (args: QuerySubprojectArgs) => {
   const { fetcher } = useCollective();
   const { slug } = args;
 
