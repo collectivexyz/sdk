@@ -43,9 +43,9 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "encoding": "^0.1.13",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.3"
   },
   "peerDependencies": {
     "react": "^18.2.0"
