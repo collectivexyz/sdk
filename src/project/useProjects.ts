@@ -13,8 +13,8 @@ export const GET_SUBPROJECTS = gql`
         logoUrl
         tags
         ownerEthAddress
-        votesCount
         votes
+        votesCount
       }
       hasNextPage
       hasPrevPage
@@ -30,7 +30,7 @@ export const GET_SUBPROJECTS = gql`
 
 type PartialSubproject = Pick<
   Subproject,
-  'name' | 'slug' | 'tagline' | 'logoUrl' | 'tags' | 'votesCount' | 'ownerEthAddress'
+  'name' | 'slug' | 'tagline' | 'logoUrl' | 'tags' | 'ownerEthAddress' | 'votes' | 'votesCount'
 >;
 
 interface IResponse {
