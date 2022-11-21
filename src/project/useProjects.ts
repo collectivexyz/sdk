@@ -14,6 +14,7 @@ export const GET_SUBPROJECTS = gql`
         tags
         ownerEthAddress
         votesCount
+        votes
       }
       hasNextPage
       hasPrevPage
