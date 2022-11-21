@@ -6,7 +6,7 @@ import { QuerySubprojectArgs, Subproject } from '../types';
 export const GET_SUBPROJECT = gql`
   query Subproject($slug: String!) {
     subproject(slug: $slug) {
-      communityId
+      communityIds
       createdAt
       funding
       id
