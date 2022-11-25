@@ -4,8 +4,20 @@ import { useCollective } from '../context';
 import { QuerySubprojectsArgs, Subproject } from '../types';
 
 export const GET_SUBPROJECTS = gql`
-  query Subprojects($limit: Int!, $page: Int!, $communityIds: [String!]!) {
-    subprojects(limit: $limit, page: $page, communityIds: $communityIds) {
+  query Subprojects(
+    $limit: Int!
+    $page: Int!
+    $communityIds: [String!]!
+    $period: String
+    $sortBy: String
+  ) {
+    subprojects(
+      limit: $limit
+      page: $page
+      communityIds: $communityIds
+      period: $period
+      sortBy: $sortBy
+    ) {
       docs {
         name
         slug
@@ -39,10 +51,10 @@ interface IResponse {
 
 export const useProjects = (args: QuerySubprojectsArgs) => {
   const { fetcher } = useCollective();
-  const { page = 1, limit = 10, communityIds } = args;
+  const { page = 1, limit = 10, communityIds, sortBy, period } = args;
 
   const { data, error, mutate } = useSWR<IResponse>(
-    communityIds ? [GET_SUBPROJECTS, { page, limit, communityIds }] : undefined,
+    communityIds ? [GET_SUBPROJECTS, { page, limit, communityIds, sortBy, period }] : undefined,
     {
       fetcher,
     }
