@@ -24,7 +24,7 @@ export const GET_SUBPROJECTS = gql`
         tagline
         logoUrl
         tags
-        ownerEthAddress
+        team
         votes
         votesCount
       }
@@ -42,7 +42,7 @@ export const GET_SUBPROJECTS = gql`
 
 type PartialSubproject = Pick<
   Subproject,
-  'name' | 'slug' | 'tagline' | 'logoUrl' | 'tags' | 'ownerEthAddress' | 'votes' | 'votesCount'
+  'name' | 'slug' | 'tagline' | 'logoUrl' | 'tags' | 'team' | 'votes' | 'votesCount'
 >;
 
 interface IResponse {

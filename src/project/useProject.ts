@@ -13,7 +13,7 @@ export const GET_SUBPROJECT = gql`
       images
       logoUrl
       name
-      ownerEthAddress
+      team
       rank
       slug
       tags
