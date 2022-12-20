@@ -59,6 +59,12 @@ export type Answer = {
   text: Scalars['String'];
 };
 
+export enum AspectRatioTypeEnum {
+  Horizontal = 'Horizontal',
+  Square = 'Square',
+  Vertical = 'Vertical',
+}
+
 export type Attachment = {
   data?: Maybe<Scalars['JSON']>;
   type?: Maybe<Scalars['String']>;
@@ -67,6 +73,23 @@ export type Attachment = {
 export type AttachmentInput = {
   data?: InputMaybe<Scalars['JSON']>;
   type?: InputMaybe<Scalars['String']>;
+};
+
+export type Auction = {
+  auctionId: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  ipfsHash?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  nextAuction?: Maybe<Auction>;
+  nftContractAddress: Scalars['String'];
+  nftTokenId: Scalars['String'];
+  previousAuction?: Maybe<Auction>;
+  scope: Scope;
+  slug: Scalars['String'];
+  submission: Submission;
+  submissionId: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+  videoUrl?: Maybe<Scalars['String']>;
 };
 
 export type AuthorUrls = {
@@ -102,7 +125,43 @@ export type BuilderStats = {
 
 export enum CacheControlScope {
   Private = 'PRIVATE',
-  Public = 'PUBLIC'
+  Public = 'PUBLIC',
+}
+
+export type CategorizedLink = {
+  category: CategoryTypeEnum;
+  openGraph?: Maybe<OpenGraph>;
+  platform: PlatformTypeEnum;
+  post?: Maybe<CategorizedPost>;
+  profile?: Maybe<CategorizedProfile>;
+  url: Scalars['String'];
+  video?: Maybe<CategorizedVideo>;
+};
+
+export type CategorizedPost = {
+  createdAt?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  user?: Maybe<CategorizedProfile>;
+};
+
+export type CategorizedProfile = {
+  avatarUrl?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type CategorizedVideo = {
+  aspectRatio?: Maybe<AspectRatioTypeEnum>;
+  embedUrl?: Maybe<Scalars['String']>;
+  thumbnailUrl?: Maybe<Scalars['String']>;
+};
+
+export enum CategoryTypeEnum {
+  Audio = 'Audio',
+  Other = 'Other',
+  Post = 'Post',
+  Profile = 'Profile',
+  Video = 'Video',
 }
 
 export type Community = {
@@ -149,7 +208,7 @@ export type Community = {
 
 export enum CommunityAccessEnum {
   Private = 'Private',
-  Public = 'Public'
+  Public = 'Public',
 }
 
 export type CommunityActivity = {
@@ -202,14 +261,14 @@ export enum CommunityMemberRoleEnum {
   Admin = 'Admin',
   Member = 'Member',
   Moderator = 'Moderator',
-  Owner = 'Owner'
+  Owner = 'Owner',
 }
 
 export enum CommunityMemberStatusEnum {
   Approved = 'Approved',
   Banned = 'Banned',
   Invited = 'Invited',
-  Requested = 'Requested'
+  Requested = 'Requested',
 }
 
 export type CommunityMembers = {
@@ -279,7 +338,7 @@ export type CommunityProfile = {
   ownershipStats?: Maybe<OwnershipStats>;
   /** Custom community profile data like skills bio etc */
   profile?: Maybe<Scalars['JSON']>;
-  profilePicture: Scalars['String'];
+  profilePicture?: Maybe<Scalars['String']>;
   rankings?: Maybe<MemberRankings>;
   socialConnections?: Maybe<Array<SocialConnection>>;
   twitter?: Maybe<TwitterProfile>;
@@ -289,38 +348,31 @@ export type CommunityProfile = {
   usernameUpdatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-
 export type CommunityProfileAlignmentStatsArgs = {
   governanceEntityId: Scalars['String'];
   sourceEthAddress: Scalars['String'];
 };
 
-
 export type CommunityProfileDelegateArgs = {
   governanceEntityId: Scalars['String'];
 };
-
 
 export type CommunityProfileDelegatorsArgs = {
   governanceEntityId: Scalars['String'];
 };
 
-
 export type CommunityProfileHasDelegatedArgs = {
   governanceEntityId: Scalars['String'];
 };
-
 
 export type CommunityProfileIsDelegateArgs = {
   governanceEntityId: Scalars['String'];
 };
 
-
 export type CommunityProfileProfilePictureArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
   fallback?: InputMaybe<Scalars['Boolean']>;
 };
-
 
 export type CommunityProfileUserArgs = {
   fallback?: InputMaybe<Scalars['Boolean']>;
@@ -358,12 +410,12 @@ export type CommunityProfilesSetCommunityInput = {
 
 export enum CommunityTypeEnum {
   OfficialProjectCommunity = 'OfficialProjectCommunity',
-  UserCreatedCommunity = 'UserCreatedCommunity'
+  UserCreatedCommunity = 'UserCreatedCommunity',
 }
 
 export enum CommunityVisibilityEnum {
   Hidden = 'Hidden',
-  Listed = 'Listed'
+  Listed = 'Listed',
 }
 
 export type ConnectedAccount = {
@@ -484,6 +536,17 @@ export type CreatePostInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type CreateSubmissionInput = {
+  aspectRatio?: InputMaybe<AspectRatioTypeEnum>;
+  avatarUrl?: InputMaybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  thumbnailUrl?: InputMaybe<Scalars['String']>;
+  url: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type CreateSubprojectInput = {
   communityIds: Array<Scalars['String']>;
   images: Array<Scalars['String']>;
@@ -511,7 +574,6 @@ export type Delegate = {
   type: Scalars['String'];
   votes?: Maybe<Array<Vote>>;
 };
-
 
 export type DelegateCommunityProfileArgs = {
   communityId?: InputMaybe<Scalars['String']>;
@@ -641,7 +703,6 @@ export type Feed = {
   type?: Maybe<FeedTypeEnum>;
 };
 
-
 export type FeedPostsArgs = {
   authorId?: InputMaybe<Scalars['String']>;
   excludeLabels?: InputMaybe<Array<PostLabel>>;
@@ -661,14 +722,14 @@ export type FeedPermissions = {
 
 export enum FeedPostingAccessEnum {
   Everyone = 'Everyone',
-  ModerationTeam = 'ModerationTeam'
+  ModerationTeam = 'ModerationTeam',
 }
 
 export enum FeedTypeEnum {
   Announcement = 'Announcement',
   Discussion = 'Discussion',
   PlatformCreated = 'PlatformCreated',
-  UserCreated = 'UserCreated'
+  UserCreated = 'UserCreated',
 }
 
 export type FirstPurchase = {
@@ -744,7 +805,6 @@ export type GovernanceAccount = {
   totalTokens?: Maybe<Scalars['Float']>;
   type: Scalars['String'];
 };
-
 
 export type GovernanceAccountCommunityProfileArgs = {
   communityId: Scalars['String'];
@@ -888,13 +948,11 @@ export type Me = {
   username?: Maybe<Scalars['String']>;
 };
 
-
 export type MeAnnouncementsArgs = {
   limit?: InputMaybe<Scalars['Float']>;
   page?: InputMaybe<Scalars['Float']>;
   sort?: InputMaybe<Scalars['String']>;
 };
-
 
 export type MeProposalsArgs = {
   limit?: InputMaybe<Scalars['Float']>;
@@ -921,13 +979,13 @@ export type MemberLabel = {
 
 export enum MemberLabelOrigin {
   Autogenerated = 'autogenerated',
-  Custom = 'custom'
+  Custom = 'custom',
 }
 
 export enum MemberLabelType {
   Builder = 'Builder',
   Governance = 'Governance',
-  Ownership = 'Ownership'
+  Ownership = 'Ownership',
 }
 
 export type MemberRankings = {
@@ -943,7 +1001,7 @@ export type MembershipPoliciesConfig = {
 };
 
 export enum MembershipPolicyTypeEnum {
-  OwnershipGate = 'OwnershipGate'
+  OwnershipGate = 'OwnershipGate',
 }
 
 export type Mutation = {
@@ -953,6 +1011,7 @@ export type Mutation = {
   changeRole: CommunityMember;
   createCommunityFeed: Feed;
   createPost: Post;
+  createSubmission: Submission;
   createSubproject: Subproject;
   deleteFeed: DeleteFeedMutationResult;
   deletePost: DeletePostMutationResult;
@@ -968,6 +1027,7 @@ export type Mutation = {
   setMainSpaceUrl: Community;
   signPost: Post;
   toggleDownvote: Post;
+  toggleSubmissionVote: Submission;
   toggleSubprojectVote: Subproject;
   toggleUpvote: Post;
   unBanMember: CommunityMember;
@@ -978,24 +1038,20 @@ export type Mutation = {
   updatePost: Post;
 };
 
-
 export type MutationAddEnsDomainArgs = {
   communityId: Scalars['String'];
   subdomainName: Scalars['String'];
 };
-
 
 export type MutationAddPostReactionArgs = {
   postId: Scalars['String'];
   reaction: Scalars['String'];
 };
 
-
 export type MutationBanMemberArgs = {
   communityId: Scalars['String'];
   userId: Scalars['String'];
 };
-
 
 export type MutationChangeRoleArgs = {
   communityId: Scalars['String'];
@@ -1003,38 +1059,35 @@ export type MutationChangeRoleArgs = {
   userId: Scalars['String'];
 };
 
-
 export type MutationCreateCommunityFeedArgs = {
   communityId: Scalars['String'];
   feedData: CreateFeedInput;
 };
 
-
 export type MutationCreatePostArgs = {
   postData: CreatePostInput;
 };
 
+export type MutationCreateSubmissionArgs = {
+  createSubmissionData: CreateSubmissionInput;
+};
 
 export type MutationCreateSubprojectArgs = {
   createSubprojectData: CreateSubprojectInput;
 };
 
-
 export type MutationDeleteFeedArgs = {
   feedId: Scalars['String'];
 };
-
 
 export type MutationDeletePostArgs = {
   postId: Scalars['String'];
 };
 
-
 export type MutationDeletePostReactionArgs = {
   postId: Scalars['String'];
   reaction: Scalars['String'];
 };
-
 
 export type MutationEditProposalFieldArgs = {
   entityId: Scalars['String'];
@@ -1044,33 +1097,27 @@ export type MutationEditProposalFieldArgs = {
   value: Scalars['String'];
 };
 
-
 export type MutationMarkNotificationAsReadArgs = {
   id: Scalars['String'];
 };
-
 
 export type MutationMarkNotificationAsUnreadArgs = {
   id: Scalars['String'];
 };
 
-
 export type MutationPinPostArgs = {
   postId: Scalars['String'];
 };
-
 
 export type MutationRemoveMemberArgs = {
   communityId: Scalars['String'];
   userId: Scalars['String'];
 };
 
-
 export type MutationReportPostArgs = {
   postId: Scalars['String'];
   reason: Scalars['String'];
 };
-
 
 export type MutationSetCommunityProfileArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
@@ -1079,12 +1126,10 @@ export type MutationSetCommunityProfileArgs = {
   communitySlug?: InputMaybe<Scalars['String']>;
 };
 
-
 export type MutationSetMainSpaceUrlArgs = {
   communityId: Scalars['String'];
   mainSpaceUrl: Scalars['String'];
 };
-
 
 export type MutationSignPostArgs = {
   address: Scalars['String'];
@@ -1092,50 +1137,45 @@ export type MutationSignPostArgs = {
   signature: Scalars['String'];
 };
 
-
 export type MutationToggleDownvoteArgs = {
   postId: Scalars['String'];
 };
 
+export type MutationToggleSubmissionVoteArgs = {
+  slug: Scalars['String'];
+};
 
 export type MutationToggleSubprojectVoteArgs = {
   slug: Scalars['String'];
 };
 
-
 export type MutationToggleUpvoteArgs = {
   postId: Scalars['String'];
 };
-
 
 export type MutationUnBanMemberArgs = {
   communityId: Scalars['String'];
   userId: Scalars['String'];
 };
 
-
 export type MutationUnpinPostArgs = {
   postId: Scalars['String'];
 };
-
 
 export type MutationUpdateCommunityArgs = {
   communityData: UpdateCommunityInput;
   communityId: Scalars['String'];
 };
 
-
 export type MutationUpdateCommunityFeedsOrderArgs = {
   communityId: Scalars['String'];
   feedsOrder: Array<Scalars['String']>;
 };
 
-
 export type MutationUpdateFeedArgs = {
   feedData: UpdateFeedInput;
   feedId: Scalars['String'];
 };
-
 
 export type MutationUpdatePostArgs = {
   postData: UpdatePostInput;
@@ -1189,7 +1229,7 @@ export type NotificationRule = {
 export enum NotificationTypeEnum {
   PostMention = 'PostMention',
   PostReply = 'PostReply',
-  ProposalNew = 'ProposalNew'
+  ProposalNew = 'ProposalNew',
 }
 
 export type NotionalValue = {
@@ -1197,6 +1237,19 @@ export type NotionalValue = {
   eth?: Maybe<Scalars['Int']>;
   quantity?: Maybe<Scalars['String']>;
   usd?: Maybe<Scalars['Int']>;
+};
+
+export type NounsDynamicQuorum = {
+  maxQuorumVotesBPS?: Maybe<Scalars['String']>;
+  minQuorumVotesBPS?: Maybe<Scalars['String']>;
+  quorumCoefficient?: Maybe<Scalars['String']>;
+  totalSupply?: Maybe<Scalars['String']>;
+};
+
+export type OpenGraph = {
+  description?: Maybe<Scalars['String']>;
+  imageUrl?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
 };
 
 export type OwnershipStats = {
@@ -1270,6 +1323,19 @@ export type PaginatedPosts = {
   totalPages?: Maybe<Scalars['Float']>;
 };
 
+export type PaginatedSubmissions = {
+  docs: Array<Submission>;
+  hasNextPage: Scalars['Boolean'];
+  hasPrevPage: Scalars['Boolean'];
+  limit: Scalars['Int'];
+  nextPage?: Maybe<Scalars['Int']>;
+  page: Scalars['Int'];
+  pagingCounter: Scalars['Int'];
+  prevPage?: Maybe<Scalars['Int']>;
+  totalDocs: Scalars['Int'];
+  totalPages: Scalars['Int'];
+};
+
 export type PaginatedSubprojects = {
   docs: Array<Subproject>;
   hasNextPage: Scalars['Boolean'];
@@ -1312,6 +1378,20 @@ export type PlatformAuthor = {
   username?: Maybe<Scalars['String']>;
 };
 
+export enum PlatformTypeEnum {
+  Discord = 'Discord',
+  Discourse = 'Discourse',
+  GitHub = 'GitHub',
+  Ipfs = 'IPFS',
+  Instagram = 'Instagram',
+  MegaUpload = 'MegaUpload',
+  PodBean = 'PodBean',
+  Twitter = 'Twitter',
+  Vimeo = 'Vimeo',
+  YouTube = 'YouTube',
+  ZoraIpfs = 'ZoraIPFS',
+}
+
 export type Post = {
   actingAs?: Maybe<Project>;
   attachments?: Maybe<Array<Attachment>>;
@@ -1346,7 +1426,6 @@ export type Post = {
   voteScore?: Maybe<Scalars['Float']>;
 };
 
-
 export type PostCommunityProfileArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
   communityId?: InputMaybe<Scalars['String']>;
@@ -1355,7 +1434,7 @@ export type PostCommunityProfileArgs = {
 export enum PostLabel {
   Announcement = 'Announcement',
   Pinned = 'Pinned',
-  Reported = 'Reported'
+  Reported = 'Reported',
 }
 
 export type PostPermissions = {
@@ -1370,7 +1449,8 @@ export type PostPermissions = {
 
 export enum PostTypeEnum {
   Announcement = 'Announcement',
-  Discussion = 'Discussion'
+  Default = 'Default',
+  Discussion = 'Discussion',
 }
 
 export type Project = {
@@ -1433,8 +1513,10 @@ export type Proposal = {
   entityId: Scalars['String'];
   linkedPostId?: Maybe<Scalars['String']>;
   linkedSubprojectSlug?: Maybe<Scalars['String']>;
+  links?: Maybe<Array<CategorizedLink>>;
   metadata?: Maybe<ProposalMetadata>;
   network: Scalars['String'];
+  nounsDynamicQuorum?: Maybe<NounsDynamicQuorum>;
   options: Array<ProposalOption>;
   platformUrl?: Maybe<Scalars['String']>;
   project?: Maybe<Project>;
@@ -1457,17 +1539,14 @@ export type Proposal = {
   votes: Array<Vote>;
 };
 
-
 export type ProposalCommunityProfileArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
   communityId?: InputMaybe<Scalars['String']>;
 };
 
-
 export type ProposalContentfulArgs = {
   collectionSlug: Scalars['String'];
 };
-
 
 export type ProposalVotesArgs = {
   reason?: InputMaybe<Scalars['String']>;
@@ -1558,6 +1637,8 @@ export type Query = {
   accountDelegate?: Maybe<Scalars['String']>;
   /** Get all proposal metadata for static site generation. */
   allProposalUrls?: Maybe<Array<BasicProposalMetadata>>;
+  auction?: Maybe<Auction>;
+  auctionRecent?: Maybe<Auction>;
   blockNumber: Scalars['String'];
   commentAncestryTree?: Maybe<Post>;
   comments?: Maybe<PaginatedComments>;
@@ -1593,6 +1674,8 @@ export type Query = {
   proposal?: Maybe<Proposal>;
   proposals?: Maybe<ProposalPaginated>;
   proposalsByCommunitySlug?: Maybe<Array<Proposal>>;
+  submission?: Maybe<Submission>;
+  submissions?: Maybe<PaginatedSubmissions>;
   subproject?: Maybe<Subproject>;
   subprojects?: Maybe<PaginatedSubprojects>;
   suggestionsByPhrase: Array<Suggestion>;
@@ -1602,23 +1685,28 @@ export type Query = {
   votes?: Maybe<PaginatedVotes>;
 };
 
-
 export type QueryAbsenteesArgs = {
   entityId: Scalars['String'];
   proposalId: Scalars['String'];
 };
-
 
 export type QueryAccountDelegateArgs = {
   address: Scalars['String'];
   entityId: Scalars['String'];
 };
 
+export type QueryAuctionArgs = {
+  communityId: Scalars['String'];
+  slug: Scalars['String'];
+};
+
+export type QueryAuctionRecentArgs = {
+  communityId: Scalars['String'];
+};
 
 export type QueryCommentAncestryTreeArgs = {
   postId: Scalars['String'];
 };
-
 
 export type QueryCommentsArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
@@ -1627,16 +1715,13 @@ export type QueryCommentsArgs = {
   sort?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryCommunityArgs = {
   communityId: Scalars['String'];
 };
 
-
 export type QueryCommunityBySlugArgs = {
   slug: Scalars['String'];
 };
-
 
 export type QueryCommunityMembersArgs = {
   communityId: Scalars['String'];
@@ -1647,7 +1732,6 @@ export type QueryCommunityMembersArgs = {
   status?: InputMaybe<CommunityMemberStatusEnum>;
 };
 
-
 export type QueryCommunityProfileArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
   communityId?: InputMaybe<Scalars['String']>;
@@ -1655,7 +1739,6 @@ export type QueryCommunityProfileArgs = {
   ethAddress?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryCommunityProfilesArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
@@ -1670,18 +1753,15 @@ export type QueryCommunityProfilesArgs = {
   sortDirection?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryCommunitySuggestionsArgs = {
   term: Scalars['String'];
 };
-
 
 export type QueryDelegateArgs = {
   address: Scalars['String'];
   entityId: Scalars['String'];
   type: Scalars['String'];
 };
-
 
 export type QueryDelegatesArgs = {
   entityId: Scalars['String'];
@@ -1690,16 +1770,13 @@ export type QueryDelegatesArgs = {
   type: Scalars['String'];
 };
 
-
 export type QueryEntitiesArgs = {
   entityIds: Array<Scalars['String']>;
 };
 
-
 export type QueryFeedArgs = {
   feedId: Scalars['String'];
 };
-
 
 export type QueryGetGlobalListingsArgs = {
   blockchain: Scalars['String'];
@@ -1711,7 +1788,6 @@ export type QueryGetGlobalListingsArgs = {
   sortBy?: InputMaybe<Scalars['String']>;
   time?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryGetNftsArgs = {
   blockchain: Scalars['String'];
@@ -1725,7 +1801,6 @@ export type QueryGetNftsArgs = {
   time?: InputMaybe<Scalars['String']>;
   tokenId?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryGetNftsByAddressArgs = {
   address: Scalars['String'];
@@ -1741,7 +1816,6 @@ export type QueryGetNftsByAddressArgs = {
   tokenId?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryHistoricalSocialEngagementsArgs = {
   address: Scalars['String'];
   communityId: Scalars['String'];
@@ -1749,7 +1823,6 @@ export type QueryHistoricalSocialEngagementsArgs = {
   page?: InputMaybe<Scalars['Int']>;
   startDate: Scalars['DateTime'];
 };
-
 
 export type QueryMemberActivityArgs = {
   address?: InputMaybe<Scalars['String']>;
@@ -1760,7 +1833,6 @@ export type QueryMemberActivityArgs = {
   username?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryNotificationsArgs = {
   communityId?: InputMaybe<Scalars['String']>;
   isAcknowledged?: InputMaybe<Scalars['Boolean']>;
@@ -1768,11 +1840,9 @@ export type QueryNotificationsArgs = {
   page?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryPostArgs = {
   postId: Scalars['String'];
 };
-
 
 export type QueryPostsArgs = {
   authorId?: InputMaybe<Scalars['String']>;
@@ -1786,19 +1856,16 @@ export type QueryPostsArgs = {
   sort?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryProjectArgs = {
   blockchain: Scalars['String'];
   collectionSlug: Scalars['String'];
 };
-
 
 export type QueryProposalArgs = {
   collectionSlug: Scalars['String'];
   entityId: Scalars['String'];
   proposalId: Scalars['String'];
 };
-
 
 export type QueryProposalsArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
@@ -1811,17 +1878,24 @@ export type QueryProposalsArgs = {
   sortDirection?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryProposalsByCommunitySlugArgs = {
   communitySlug: Scalars['String'];
   status?: InputMaybe<Scalars['String']>;
 };
 
+export type QuerySubmissionArgs = {
+  slug: Scalars['String'];
+};
+
+export type QuerySubmissionsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  sortBy?: InputMaybe<Scalars['String']>;
+};
 
 export type QuerySubprojectArgs = {
   slug: Scalars['String'];
 };
-
 
 export type QuerySubprojectsArgs = {
   address?: InputMaybe<Scalars['String']>;
@@ -1832,23 +1906,19 @@ export type QuerySubprojectsArgs = {
   sortBy?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QuerySuggestionsByPhraseArgs = {
   phrase: Scalars['String'];
   types: Array<SearchTypeEnum>;
 };
-
 
 export type QuerySuggestionsByScopeArgs = {
   communityId: Scalars['String'];
   rootPostId: Scalars['String'];
 };
 
-
 export type QueryTopDelegatesWithVotesArgs = {
   entityId: Scalars['String'];
 };
-
 
 export type QueryVotesArgs = {
   entityIds?: InputMaybe<Array<Scalars['String']>>;
@@ -1911,7 +1981,7 @@ export type ScopeInput = {
 
 export enum SearchTypeEnum {
   Projects = 'Projects',
-  Users = 'Users'
+  Users = 'Users',
 }
 
 export type Signature = {
@@ -1975,7 +2045,7 @@ export type SocialConnection = {
 
 export enum SocialTypes {
   Discord = 'DISCORD',
-  Twitter = 'TWITTER'
+  Twitter = 'TWITTER',
 }
 
 export type Solana = {
@@ -1999,7 +2069,32 @@ export type StatNumber = {
   value?: Maybe<Scalars['Float']>;
 };
 
+export type Submission = {
+  Post: Post;
+  aspectRatio: AspectRatioTypeEnum;
+  avatarUrl?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
+  embedUrl?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  lastName?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  platformFollowers: Scalars['Float'];
+  post: Post;
+  postId: Scalars['String'];
+  rank: Scalars['Float'];
+  slug: Scalars['String'];
+  talkingAbout: Scalars['Float'];
+  thumbnailUrl?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+  url: Scalars['String'];
+  username: Scalars['String'];
+  votes: Array<Scalars['String']>;
+  votesCount: Scalars['Float'];
+};
+
 export type Subproject = {
+  Post?: Maybe<Post>;
   communityIds: Array<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   funding?: Maybe<Scalars['Float']>;
@@ -2007,6 +2102,8 @@ export type Subproject = {
   images: Array<Scalars['String']>;
   logoUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  post: Post;
+  postId?: Maybe<Scalars['String']>;
   proposalIds?: Maybe<Array<Scalars['String']>>;
   proposals?: Maybe<Array<Proposal>>;
   rank: Scalars['Float'];
@@ -2016,6 +2113,7 @@ export type Subproject = {
   team: Array<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   userId: Scalars['String'];
+  video?: Maybe<CategorizedVideo>;
   videoUrl?: Maybe<Scalars['String']>;
   votes: Array<Scalars['String']>;
   votesCount: Scalars['Float'];
@@ -2039,7 +2137,6 @@ export type SupplyStats = {
 export type TodoList = {
   proposalsByCommunityId?: Maybe<Array<Proposal>>;
 };
-
 
 export type TodoListProposalsByCommunityIdArgs = {
   communitySlug: Scalars['String'];
@@ -2110,7 +2207,6 @@ export type UserAccount = {
   username?: Maybe<Scalars['String']>;
 };
 
-
 export type UserAccountCommunityProfileArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
   communityId?: InputMaybe<Scalars['String']>;
@@ -2145,12 +2241,12 @@ export type Vote = {
   uniqueId: Scalars['String'];
   vote?: Maybe<Scalars['String']>;
   voteId: Scalars['String'];
+  votedAt: VotedAt;
   voter: Scalars['String'];
   votes: Scalars['String'];
   votesDecimal: Scalars['Float'];
   weight: Scalars['Float'];
 };
-
 
 export type VoteCommunityProfileArgs = {
   collectionSlug?: InputMaybe<Scalars['String']>;
@@ -2159,8 +2255,13 @@ export type VoteCommunityProfileArgs = {
 
 export enum VoteTypeEnum {
   Down = 'DOWN',
-  Up = 'UP'
+  Up = 'UP',
 }
+
+export type VotedAt = {
+  block?: Maybe<Scalars['Float']>;
+  time: Scalars['DateTime'];
+};
 
 export type VotingPower = {
   percentQuorum?: Maybe<Scalars['Float']>;

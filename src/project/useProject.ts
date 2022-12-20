@@ -20,6 +20,11 @@ export const GET_SUBPROJECT = gql`
       tagline
       updatedAt
       videoUrl
+      video {
+        embedUrl
+        thumbnailUrl
+        aspectRatio
+      }
       votes
       votesCount
       website
